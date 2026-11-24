@@ -303,8 +303,6 @@ g("rcb").innerHTML='<button class="x" aria-label="Close" id="rcx">&times;</butto
 row("Name",b.name)+row("WhatsApp","+91 "+b.phone)+row("Vehicle",b.veh)+row("Travel date",fd(b.d1))+row("Return date",b.d2?fd(b.d2):"-")+row("Pickup",b.from)+row("Destination",b.to)+row("Passengers",b.pax)+row("Package",b.pkg)+row("Duration",b.dur)+row("Package rate",b.rate?fm(b.rate):"To be confirmed")+row("Payment option",b.pay)+row("Pay now",b.now!=null?fm(b.now):"Amount after quote")+(b.bal?row("Balance due",fm(b.bal)):"")+row("Requirements",b.req)+
 '</table><div class="st"><b>Status: Request received.</b> Your vehicle is confirmed once we receive and acknowledge your payment'+(PAY_LINK?'.':'. We will share the payment link on WhatsApp.')+'</div><div class="ac">'+
 '<button class="btn" type="button" id="rcPdf">Get PDF receipt (send to WhatsApp)</button>'+
-'<a class="btn o" id="rcMe" target="_blank" rel="noopener" href="https://wa.me/91'+b.phone+'?text='+encodeURIComponent(rcText(b))+'">Send receipt as text message</a>'+
-'<a class="btn" id="rcOw" target="_blank" rel="noopener" href="'+wa(rcText(b,true))+'">Send booking to Shree Sawariya Seth</a>'+
 (PAY_LINK?'<a class="btn" target="_blank" rel="noopener" href="'+PAY_LINK+'">Pay online</a>':"")+
 '<button class="btn o" type="button" onclick="print()">Print / Save as PDF</button></div><div id="apist" aria-live="polite"></div>';
 g("rc").classList.add("on");g("rcx").onclick=()=>g("rc").classList.remove("on");g("rcPdf").onclick=async()=>{const f=pdfFile(b);try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:"Booking Receipt "+b.id});return}}catch(e){if(e&&e.name==="AbortError")return}const u=URL.createObjectURL(f),a=document.createElement("a");a.href=u;a.download=f.name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);g("apist").textContent="PDF downloaded. Open WhatsApp and attach it from your downloads."};
@@ -317,6 +315,7 @@ if(a&&b)open(wa(CO+m.value+"\n\n- "+n.value),"_blank")};
 
 let rTimer;
 function loadRemote(){if(!BOOKING_API)return Promise.resolve();return fetch(BOOKING_API+"/bookings").then(r=>r.json()).then(l=>{for(let k=BOOKED.length;k--;)if(BOOKED[k].r)BOOKED.splice(k,1);l.forEach(x=>BOOKED.push({v:x.v,s:x.s,e:x.e,r:1}));summ()}).catch(()=>{})}
+try{if(localStorage.getItem("sssLaunch")!=="1"){localStorage.removeItem("sssBookings");localStorage.setItem("sssLaunch","1")}}catch(e){}
 try{JSON.parse(localStorage.getItem("sssBookings")||"[]").forEach(x=>{if(x.s&&x.e&&!BOOKED.some(y=>y.v===x.veh&&y.s===x.s&&y.e===x.e))BOOKED.push({v:x.veh,s:x.s,e:x.e})})}catch(e){}
 loadRemote();summ();setInterval(loadRemote,60000);
 </script>

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin | Shree Sawariya Seth Tour &amp; Travels</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--g:#0F2A20;--g2:#173D2E;--gold:#C9A45C;--gold2:#E3C98F;--iv:#FAF6EC;--bg:#EDE4D0;--ch:#232623;--ok:#1d7a4a;--warn:#9a6a12;--bad:#a63a2b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{height:100%}
+body{margin:0;min-height:100%;font:400 15px/1.55 Jost,system-ui,sans-serif;color:var(--ch);background:var(--bg)}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;margin:0;color:var(--g)}
+button,input,select{font:inherit;color:inherit}
+.btn{border:1px solid var(--g);background:var(--g);color:var(--iv);padding:9px 16px;cursor:pointer;border-radius:2px;font-weight:500;text-decoration:none;display:inline-block;line-height:1.2}
+.btn:hover{background:var(--g2)}
+.btn.o{background:transparent;color:var(--g)}
+.btn.o:hover{background:rgba(15,42,32,.08)}
+.btn.s{padding:6px 11px;font-size:.85rem}
+.btn.d{border-color:var(--bad);color:var(--bad);background:transparent}
+.btn.d:hover{background:rgba(166,58,43,.1)}
+.btn[disabled]{opacity:.5;cursor:wait}
+input,select{background:#fff;border:1px solid #cdbf9d;padding:9px 10px;border-radius:2px;width:100%}
+input:focus,select:focus,.btn:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+label{display:block;font-size:.85rem;margin-bottom:3px;opacity:.8}
+
+/* login */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--g)}
+.lb{background:var(--iv);max-width:400px;width:100%;padding:34px 28px;border-top:5px solid var(--gold)}
+.lb h1{font-size:2rem;line-height:1.1}
+.lb p{margin:6px 0 20px;opacity:.75}
+.lb .f{margin-bottom:14px}
+#lerr{color:var(--bad);min-height:1.4em;margin:4px 0 10px;font-size:.9rem}
+
+/* app */
+#app{display:none}
+header{background:var(--g);color:var(--iv);padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-bottom:3px solid var(--gold)}
+header h1{color:var(--gold2);font-size:1.5rem;flex:1;min-width:200px}
+header .btn{border-color:var(--gold2);color:var(--gold2);background:transparent}
+header .btn:hover{background:rgba(227,201,143,.12)}
+main{max-width:1180px;margin:0 auto;padding:20px 16px 60px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:22px}
+.st{background:var(--iv);padding:14px 16px;border-left:4px solid var(--gold)}
+.st b{display:block;font:600 2rem/1 "Cormorant Garamond",serif;color:var(--g)}
+.st span{font-size:.85rem;opacity:.75}
+section{background:var(--iv);padding:18px;margin-bottom:22px}
+section>h2{font-size:1.45rem;margin-bottom:12px}
+.tools{display:grid;grid-template-columns:2fr 1.4fr 1fr 1fr auto;gap:10px;align-items:end;margin-bottom:14px}
+
+/* table */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-weight:600;font-size:.85rem;padding:8px 10px;border-bottom:2px solid var(--gold);white-space:nowrap}
+td{padding:10px;border-bottom:1px solid #ddd0b0;vertical-align:top}
+tr.past td{opacity:.6}
+.nm{font-weight:600}
+.sub{font-size:.85rem;opacity:.75}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.8rem;font-weight:600}
+.badge.paid{background:#d9efe2;color:var(--ok)}
+.badge.pending{background:#f6e7c2;color:var(--warn)}
+.badge.manual{background:#e3dcc8;color:#555;margin-left:4px}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.empty{padding:26px 10px;text-align:center;opacity:.7}
+
+/* calendar strip */
+.cal{overflow-x:auto}
+.cal table{min-width:760px;table-layout:fixed}
+.cal th{padding:4px 0;text-align:center;font-size:.72rem;font-weight:500;border-bottom:1px solid #ddd0b0}
+.cal th.vh,.cal td.vh{width:170px;text-align:left;padding-right:8px;font-size:.85rem;font-weight:600}
+.cal td{padding:3px 1px;border:0}
+.cal td i{display:block;height:26px;background:#fff;border:1px solid #e0d4b6}
+.cal td i.b{background:var(--g2);border-color:var(--g2)}
+.cal td i.b.pend{background:var(--gold);border-color:var(--gold)}
+.cal td i.t{box-shadow:inset 0 -3px 0 var(--bad)}
+.cn{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.cn b{font:600 1.2rem "Cormorant Garamond",serif;min-width:150px;text-align:center}
+.lg{font-size:.8rem;display:flex;gap:14px;margin-top:8px;opacity:.85;flex-wrap:wrap}
+.lg i{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:4px}
+
+/* add block */
+.af{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr 1fr auto;gap:10px;align-items:end}
+
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--g);color:var(--iv);padding:11px 20px;border-left:4px solid var(--gold);display:none;z-index:50;max-width:90vw}
+#toast.bad{border-color:var(--bad)}
+
+@media(max-width:900px){
+.stats{grid-template-columns:repeat(2,1fr)}
+.tools,.af{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+#bt thead{display:none}
+#bt,#bt tbody,#bt tr,#bt td{display:block;width:100%}
+#bt tr{border:1px solid #d3c59f;margin-bottom:12px;background:#fff;padding:6px 4px}
+#bt td{border:0;padding:5px 10px;display:flex;gap:10px}
+#bt td::before{content:attr(data-l);flex:0 0 84px;font-size:.8rem;opacity:.65}
+#bt td.empty{display:block}#bt td.empty::before{content:none}
+.cal th.vh,.cal td.vh{width:120px}
+}
+@media(max-width:480px){.tools,.af{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <form class="lb" id="lf" autocomplete="off">
+    <h1>Booking admin</h1>
+    <p>Shree Sawariya Seth Tour &amp; Travels</p>
+    <div class="f" id="apiRow" style="display:none"><label for="api">Server address</label><input id="api" placeholder="https://your-server.com"></div>
+    <div class="f"><label for="key">Admin key</label><input id="key" type="password" autocomplete="current-password" required></div>
+    <div id="lerr" role="alert"></div>
+    <button class="btn" style="width:100%" type="submit" id="lbtn">Sign in</button>
+  </form>
+</div>
+
+<div id="app">
+  <header>
+    <h1>Booking admin</h1>
+    <button class="btn s" id="refresh" type="button">Refresh</button>
+    <button class="btn s" id="csv" type="button">Download CSV</button>
+    <button class="btn s" id="out" type="button">Sign out</button>
+  </header>
+  <main>
+    <div class="stats" id="stats"></div>
+
+    <section>
+      <h2>Availability</h2>
+      <div class="cn">
+        <button class="btn o s" id="pm" type="button" aria-label="Previous month">&larr;</button>
+        <b id="ml"></b>
+        <button class="btn o s" id="nm" type="button" aria-label="Next month">&rarr;</button>
+      </div>
+      <div class="cal" id="cal"></div>
+      <div class="lg"><span><i style="background:var(--g2)"></i>Paid</span><span><i style="background:var(--gold)"></i>Awaiting payment</span><span><i style="background:#fff;border:1px solid #cdbf9d"></i>Free</span><span><i style="background:#fff;box-shadow:inset 0 -3px 0 var(--bad)"></i>Today</span></div>
+    </section>
+
+    <section>
+      <h2>Bookings</h2>
+      <div class="tools">
+        <div><label for="q">Search name, phone or ID</label><input id="q" type="search"></div>
+        <div><label for="fv">Vehicle</label><select id="fv"></select></div>
+        <div><label for="fs">Status</label><select id="fs"><option value="">All</option><option value="pending">Awaiting payment</option><option value="paid">Paid</option></select></div>
+        <div><label for="fw">When</label><select id="fw"><option value="up">Upcoming</option><option value="past">Past</option><option value="all">All</option></select></div>
+        <div></div>
+      </div>
+      <div class="tw"><table id="bt">
+        <thead><tr><th>Customer</th><th>Vehicle</th><th>Dates</th><th>Trip</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table></div>
+    </section>
+
+    <section>
+      <h2>Block dates for a phone or offline booking</h2>
+      <form class="af" id="af">
+        <div><label for="av">Vehicle</label><select id="av"></select></div>
+        <div><label for="as">Travel date</label><input id="as" type="date" required></div>
+        <div><label for="ae">Return date</label><input id="ae" type="date" required></div>
+        <div><label for="an">Customer name</label><input id="an" maxlength="80" placeholder="Optional"></div>
+        <div><label for="ap">Mobile</label><input id="ap" type="tel" inputmode="numeric" maxlength="14" placeholder="Optional"></div>
+        <button class="btn" type="submit">Block dates</button>
+      </form>
+    </section>
+  </main>
+</div>
+<div id="toast" role="status"></div>
+
+<script>
+// Your booking server address (same as BOOKING_API in index.html). Leave empty to type it on the sign-in screen.
+const API_URL="";
+const VEHICLES=["Force Urbania 16-Seater","Toyota Innova Hycross 7-Seater"];
+
+const $=id=>document.getElementById(id);
+const esc=t=>String(t==null?"":t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const today=()=>new Date().toLocaleDateString("en-CA");
+const D=t=>t?new Date(t+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"}):"-";
+const rs=n=>n==null||n===""?"-":"Rs. "+Number(n).toLocaleString("en-IN");
+const base=()=>(API_URL||localStorage.getItem("sssApi")||"").replace(/\/+$/,"");
+let KEY=sessionStorage.getItem("sssKey")||"",DATA=[],mon=new Date();mon.setDate(1);
+
+function toast(m,bad){const t=$("toast");t.textContent=m;t.className=bad?"bad":"";t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",3800)}
+
+async function api(path,body){
+  let r;
+  try{r=await fetch(base()+path,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({key:KEY,...body})})}
+  catch(e){throw new Error("Cannot reach the server. Check the server address and that it is running.")}
+  let j={};try{j=await r.json()}catch(e){}
+  if(r.status===403){const e=new Error("Wrong admin key.");e.auth=1;throw e}
+  if(r.status===429)throw new Error("Too many wrong attempts. Try again in 15 minutes.");
+  return {code:r.status,...j};
+}
+
+async function load(){
+  const r=await api("/admin/list",{});
+  if(!r.ok)throw new Error("Could not load bookings.");
+  DATA=r.bookings.map(b=>({...b,veh:b.veh||b.v,status:b.status||"pending"}));
+  render();
+}
+
+function vehicles(){const s=new Set(VEHICLES);DATA.forEach(b=>s.add(b.veh));return [...s]}
+function days(b){return Math.round((new Date(b.e)-new Date(b.s))/864e5)+1}
+
+function fillSelects(){
+  const v=vehicles(),fv=$("fv").value,av=$("av").value;
+  $("fv").innerHTML='<option value="">All vehicles</option>'+v.map(x=>'<option>'+esc(x)+'</option>').join("");
+  $("av").innerHTML=v.map(x=>'<option>'+esc(x)+'</option>').join("");
+  if(v.includes(fv))$("fv").value=fv;if(v.includes(av))$("av").value=av;
+}
+
+function render(){
+  fillSelects();
+  const t=today();
+  const up=DATA.filter(b=>b.e>=t);
+  $("stats").innerHTML=[["Total bookings",DATA.length],["Upcoming",up.length],["Awaiting payment",DATA.filter(b=>b.status==="pending"&&b.e>=t).length],["Paid (upcoming)",up.filter(b=>b.status==="paid").length]]
+    .map(x=>'<div class="st"><b>'+x[1]+'</b><span>'+x[0]+'</span></div>').join("");
+
+  const q=$("q").value.trim().toLowerCase(),fv=$("fv").value,fs=$("fs").value,fw=$("fw").value;
+  let L=DATA.filter(b=>(!fv||b.veh===fv)&&(!fs||b.status===fs)&&(fw==="all"||(fw==="up"?b.e>=t:b.e<t))
+    &&(!q||[b.name,b.phone,b.id,b.note].join(" ").toLowerCase().includes(q)));
+  L.sort((a,b)=>fw==="past"?b.s.localeCompare(a.s):a.s.localeCompare(b.s));
+
+  $("rows").innerHTML=L.length?L.map(b=>{
+    const msg="Hello "+(b.name||"")+", this is Shree Sawariya Seth Tour & Travels about your booking "+b.id+" ("+b.veh+", "+D(b.s)+" to "+D(b.e)+").";
+    const wa=b.phone?'<a class="btn o s" target="_blank" rel="noopener" href="https://wa.me/91'+esc(b.phone)+'?text='+encodeURIComponent(msg)+'">WhatsApp</a>':"";
+    const call=b.phone?'<a class="btn o s" href="tel:+91'+esc(b.phone)+'">Call</a>':"";
+    const trip=b.manual?esc(b.note||"Manual block"):esc(b.from||"-")+" &rarr; "+esc(b.to||"-")+'<div class="sub">'+esc(b.pax?b.pax+" passengers":"")+(b.pkg?" | "+esc(b.pkg):"")+'</div>';
+    const amt=b.manual?"-":esc(rs(b.now))+'<div class="sub">'+(b.bal?"Balance "+esc(rs(b.bal)):"No balance")+'</div>';
+    const toggle='<button class="btn s'+(b.status==="paid"?" o":"")+'" data-a="st" data-id="'+esc(b.id)+'" data-s="'+(b.status==="paid"?"pending":"paid")+'">'+(b.status==="paid"?"Mark unpaid":"Mark paid")+'</button>';
+    const resend=b.manual?"":'<button class="btn o s" data-a="rs" data-id="'+esc(b.id)+'">Resend PDF</button>';
+    return '<tr class="'+(b.e<t?"past":"")+'"><td data-l="Customer"><div><div class="nm">'+esc(b.name||"-")+'</div><div class="sub">'+(b.phone?"+91 "+esc(b.phone):"No number")+'<br>'+esc(b.id)+'</div></div></td>'
+      +'<td data-l="Vehicle">'+esc(b.veh)+'</td>'
+      +'<td data-l="Dates"><div>'+esc(D(b.s))+' to '+esc(D(b.e))+'<div class="sub">'+days(b)+' day'+(days(b)>1?"s":"")+'</div></div></td>'
+      +'<td data-l="Trip"><div>'+trip+'</div></td><td data-l="Amount"><div>'+amt+'</div></td>'
+      +'<td data-l="Status"><div><span class="badge '+b.status+'">'+(b.status==="paid"?"Paid":"Awaiting payment")+'</span>'+(b.manual?'<span class="badge manual">Manual</span>':"")+'</div></td>'
+      +'<td data-l="Actions"><div class="acts">'+toggle+wa+call+resend+'<button class="btn d s" data-a="del" data-id="'+esc(b.id)+'">Release dates</button></div></td></tr>';
+  }).join(""):'<tr><td class="empty" colspan="7">No bookings found.</td></tr>';
+  cal();
+}
+
+function cal(){
+  const y=mon.getFullYear(),m=mon.getMonth(),n=new Date(y,m+1,0).getDate(),t=today();
+  $("ml").textContent=mon.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
+  const iso=d=>y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+  let h='<table><thead><tr><th class="vh"></th>';
+  for(let d=1;d<=n;d++)h+="<th>"+d+"</th>";
+  h+="</tr></thead><tbody>";
+  vehicles().forEach(v=>{
+    h+='<tr><td class="vh">'+esc(v)+"</td>";
+    for(let d=1;d<=n;d++){
+      const k=iso(d),b=DATA.find(x=>x.veh===v&&x.s<=k&&x.e>=k);
+      h+='<td><i class="'+(b?"b"+(b.status==="paid"?"":" pend"):"")+(k===t?" t":"")+'"'+(b?' title="'+esc((b.name||"")+" ("+b.id+") "+D(b.s)+" to "+D(b.e))+'"':"")+"></i></td>";
+    }
+    h+="</tr>";
+  });
+  $("cal").innerHTML=h+"</tbody></table>";
+}
+
+// ---------- events ----------
+$("pm").onclick=()=>{mon.setMonth(mon.getMonth()-1);cal()};
+$("nm").onclick=()=>{mon.setMonth(mon.getMonth()+1);cal()};
+["q","fv","fs","fw"].forEach(i=>$(i).addEventListener(i==="q"?"input":"change",render));
+$("refresh").onclick=()=>load().then(()=>toast("Updated")).catch(e=>toast(e.message,1));
+$("out").onclick=()=>{sessionStorage.removeItem("sssKey");KEY="";$("app").style.display="none";$("login").style.display="flex";$("key").value=""};
+
+$("rows").addEventListener("click",async e=>{
+  const bt=e.target.closest("button[data-a]");if(!bt)return;
+  const id=bt.dataset.id,b=DATA.find(x=>x.id===id);if(!b)return;
+  try{
+    if(bt.dataset.a==="st"){
+      const r=await api("/admin/status",{id,status:bt.dataset.s});if(!r.ok)throw new Error("Could not update status.");
+      toast(bt.dataset.s==="paid"?"Marked as paid":"Marked as awaiting payment");await load();
+    }else if(bt.dataset.a==="del"){
+      if(!confirm("Release "+b.veh+" for "+D(b.s)+" to "+D(b.e)+"?\n\nThis deletes the booking "+b.id+" and the dates become free for other customers."))return;
+      const r=await api("/admin/delete",{id});if(!r.ok)throw new Error("Could not release the dates.");
+      toast("Dates released");await load();
+    }else if(bt.dataset.a==="rs"){
+      bt.disabled=true;bt.textContent="Sending...";
+      const r=await api("/admin/resend",{id});
+      bt.disabled=false;bt.textContent="Resend PDF";
+      if(!r.ok)throw new Error("Could not send. Check the WhatsApp settings on the server.");
+      toast("PDF receipt sent");
+    }
+  }catch(err){toast(err.message,1);if(err.auth)$("out").click();else load().catch(()=>{})}
+});
+
+$("af").onsubmit=async e=>{
+  e.preventDefault();
+  const s=$("as").value,en=$("ae").value;
+  if(en<s){toast("Return date cannot be before the travel date.",1);return}
+  try{
+    const r=await api("/admin/add",{veh:$("av").value,s,e:en,name:$("an").value.trim(),phone:$("ap").value});
+    if(r.code===409){toast("Already booked: "+(r.range||"these dates")+".",1);return}
+    if(!r.ok)throw new Error("Could not block the dates.");
+    $("af").reset();toast("Dates blocked");await load();
+  }catch(err){toast(err.message,1)}
+};
+
+$("csv").onclick=()=>{
+  const c=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+  const H=["Booking ID","Name","Mobile","Vehicle","Travel date","Return date","Pickup","Destination","Passengers","Package","Pay now","Balance","Status","Booked at","Note"];
+  const R=DATA.slice().sort((a,b)=>a.s.localeCompare(b.s)).map(b=>[b.id,b.name,b.phone,b.veh,b.s,b.e,b.from,b.to,b.pax,b.pkg,b.now,b.bal,b.status,b.at,b.note].map(c).join(","));
+  const u=URL.createObjectURL(new Blob(["\ufeff"+[H.map(c).join(",")].concat(R).join("\n")],{type:"text/csv"}));
+  const a=document.createElement("a");a.href=u;a.download="bookings-"+today()+".csv";document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000);
+};
+
+// ---------- sign in ----------
+if(!API_URL){$("apiRow").style.display="block";$("api").value=localStorage.getItem("sssApi")||""}
+function show(){$("login").style.display="none";$("app").style.display="block"}
+$("lf").onsubmit=async e=>{
+  e.preventDefault();$("lerr").textContent="";
+  if(!API_URL){const a=$("api").value.trim();if(!/^https?:\/\//.test(a)){$("lerr").textContent="Enter the full server address, starting with https://";return}localStorage.setItem("sssApi",a)}
+  KEY=$("key").value;$("lbtn").disabled=true;$("lbtn").textContent="Signing in...";
+  try{await load();sessionStorage.setItem("sssKey",KEY);show()}
+  catch(err){KEY="";$("lerr").textContent=err.message}
+  $("lbtn").disabled=false;$("lbtn").textContent="Sign in";
+};
+if(KEY&&base()){load().then(show).catch(()=>{KEY="";sessionStorage.removeItem("sssKey")})}
+setInterval(()=>{if(KEY&&$("app").style.display==="block")load().catch(()=>{})},60000);
+</script>
+</body>
+</html>
